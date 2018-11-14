@@ -1,0 +1,59 @@
+
+//L293D
+//Motor A
+const int in1  = 5;  // Pin 14 of L293
+const int in2  = 6;  // Pin 10 of L293
+//Motor B
+const int in3  = 10; // Pin  7 of L293
+const int in4  = 9;  // Pin  2 of L293
+const int trigPin = 2;
+const int echoPin = 4;
+void setup() 
+{
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode (in1, OUTPUT);
+  pinMode (in2, OUTPUT);
+  pinMode (in3, OUTPUT);
+  pinMode (in4, OUTPUT);
+}
+long duration, distance;
+
+void loop()
+{     
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);  
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration/58.2;
+
+    if(distance >= 0 && distance < 10)
+    {
+      digitalWrite(in1, LOW); 
+      digitalWrite(in2,LOW); 
+      digitalWrite(in3, LOW); 
+      digitalWrite(in4, LOW);
+    }
+    
+ else if(distance >= 10 && distance <25)
+    {
+      digitalWrite(in1, LOW); 
+      digitalWrite(in2, HIGH); 
+      digitalWrite(in3, HIGH); 
+      digitalWrite(in4, LOW);
+    }
+    else if(distance >=25)
+    {
+      digitalWrite(in1, HIGH); 
+      digitalWrite(in2, LOW); 
+      digitalWrite(in3, HIGH); 
+      digitalWrite(in4, LOW);
+    }
+    
+  delay(50);
+} 
+
+
+
